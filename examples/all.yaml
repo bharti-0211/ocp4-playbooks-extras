@@ -396,23 +396,27 @@ bgp_address:
 
 # ocp-coo vars
 coo_operator_deploy: true
-coo_cleanup: true
-enable_dashboard_uiplugin: false
-enable_logging_uiplugin: false
-enable_distributed_tracing_uiplugin: false
-enable_troubleshootingpanel_uiplugin: false
-coo_role_enable: false
-coo_namespace: "openshift-observability-operator"
-coo_catalogsource_name: "coo-catalog"
-coo_catalogsource_image: "brew.registry.redhat.io/rh-osbs/iib:760399"
-coo_channel: "development"
+coo_enable_global_secret: false
+coo_cleanup: false
+enable_coo_stack: true
+enable_logging_uiplugin: true
+enable_distributed_tracing_uiplugin: true
+enable_troubleshootingpanel_uiplugin: true
+enable_monitoring_uiplugin: true
+enable_perses_dashboard: true
+coo_operator_namespace: "openshift-cluster-observability-operator"
+coo_catalogsource_image: "quay.io/redhat-user-workloads/cluster-observabilit-tenant/cluster-observability-operator/coo-fbc-v4-20@sha256:c19e912526e49dc37fdaf24b4953dd671193ca3aa6797da60721d9ddfcd4daf0"
+coo_channel: "stable"
 coo_e2e_namespace: "coo-e2e"
 coo_logstack_namespace: "openshift-logging"
-minio_image: "quay.io/minio/minio:latest"
-distributed_tracing_qe_repo: "https://github.com/openshift/distributed-tracing-qe.git"
-distributed_tracing_qe_repo_branch: "main"
+cluster_logging_channel: "stable-6.4"
+loki_channel: "stable-6.4"
+coo_catalogsource_name: "coo"
+tempo_operator_namespace: "openshift-tempo-operator"
+opentelemetry_operator_namespace: "openshift-opentelemetry-operator"
+distributed_tracing_qe_repo: "https://github.com/openshift/distributed-tracing-console-plugin.git"
+distributed_tracing_qe_repo_branch: "release-1.0"
 chainsaw_tarball: "https://github.com/kyverno/chainsaw/releases/download/v0.2.9-beta.1/chainsaw_linux_ppc64le.tar.gz"
-chainsaw_test_namespace: "chainsaw-multitenancy"
 chainsaw_path: "/usr/local/"
 coo_work_dir: "/tmp/coo_logs"
 
@@ -566,6 +570,7 @@ odf_enabled: false
 update_channel: ""
 odf_catalogsource_image: "" #Example - quay.io/rhceph-dev/ocs-registry:4.16.3
 test_pod_image: "quay.io/powercloud/nginx-unprivileged:latest"
+odf_enable_global_secret: false 
 
 ## ocp-service-controller-function vars
 ocp-service: false
@@ -588,3 +593,28 @@ cso_catalogsource_name:  ""
 cso_catalogsource_image: "" 
 cso_operator_channel :   
 
+# SPO vars
+spo_enabled: false
+spo_catalogsource_image: ""
+spo_upgrade_channel: "" #release-alpha-rhel-8 is set as default 
+quay_username: ""
+quay_token: ""
+login_ocp_token: "" # similar to --token=sha256~C0VXA0zxpgCg4Z4yDDsIe3oC9kmwnX4aciJ69k8h7kM --server=https://api.rdr-*.ibm.com:6443
+openshift_test_private_validation: false
+openshift_test_private_golang_tarball: "https://go.dev/dl/go1.24.1.linux-ppc64le.tar.gz"
+openshift_test_private_git_branch: ""
+spo_testcase_filters: "Security_Profiles_Operator"
+
+# ocp-quay required vars
+quay_enabled: false            #set to true for quay operator installation
+lso_index: "" # provide LSO index image
+cluster_upi: true  #set to true if using UPI cluster
+quay_registry_namespace: ""        #Nmaespace for quay-registry
+quay_catalogsource_name:  ""     # CatalogSource Name
+quay_catalogsource_image: "" # CatalogSource Image
+quay_operator_channel:    # Version of Quay to be installed 
+quay_registry_hostname: "" # Hostname for Quayconfig
+volume_path: "/dev/disk/by-id/......" #Get the volume path using "ls /dev/disk/by-id/......"
+odf_index: "" #Example - quay.io/rhceph-dev/ocs-registry:4.16.3
+odf_channel:  #Define this to set subscription channel for ODF Operator
+quay_enable_global_secret: false 
