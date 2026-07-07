@@ -125,6 +125,7 @@
         - name: Include the global-secret-update role
           include_role:
             name: global-secret-update
+          when: nmstate_enable_global_secret
 
         - name: Set fact variable for catalog source name
           set_fact:
@@ -153,19 +154,19 @@
                 imageDigestMirrors:
                   - mirrors:
                       - quay.io/redhat-user-workloads/ocp-art-tenant/art-images-share
-                    source: registry.redhat.io/openshift4/kubernetes-nmstate-operator-bundle
+                    source: registry.redhat.io/openshift5/kubernetes-nmstate-operator-bundle
                   - mirrors:
                       - quay.io/redhat-user-workloads/ocp-art-tenant/art-images-share
-                    source: registry.redhat.io/openshift4/kubernetes-nmstate-rhel9-operator
+                    source: registry.redhat.io/openshift5/kubernetes-nmstate-rhel9-operator
                   - mirrors:
                       - quay.io/redhat-user-workloads/ocp-art-tenant/art-images-share
-                    source: registry.redhat.io/openshift4/nmstate-console-plugin-rhel9
+                    source: registry.redhat.io/openshift5/nmstate-console-plugin-rhel9
                   - mirrors:
                       - quay.io/redhat-user-workloads/ocp-art-tenant/art-images-share
-                    source: registry.redhat.io/openshift4/ose-kube-rbac-proxy-rhel9
+                    source: registry.redhat.io/openshift5/ose-kube-rbac-proxy-rhel9
                   - mirrors:
                       - quay.io/redhat-user-workloads/ocp-art-tenant/art-images-share
-                    source: registry.redhat.io/openshift4/ose-kubernetes-nmstate-handler-rhel9
+                    source: registry.redhat.io/openshift5/ose-kubernetes-nmstate-handler-rhel9
                   - mirrors:
                       - brew.registry.redhat.io
                     source: registry.redhat.io
@@ -282,8 +283,8 @@
       include_role:
         name: golang-installation
       vars:
-        go_tarball: "{{ nmstate_golang_tarball }}"
-        golang_path: "/usr/local"
+        golang_tarball_url: "{{ nmstate_golang_tarball }}"
+        golang_installation_path: "/usr/local"
 
     - name: Clone the kubernetes-nmstate repository
       git:
